@@ -16,7 +16,12 @@
     toggle24h: document.getElementById('toggle-24h'),
     toggleSeconds: document.getElementById('toggle-seconds'),
     rangeDim: document.getElementById('range-dim'),
+    lockToggle: document.getElementById('lock-toggle'),
+    lockShackle: document.getElementById('lock-shackle'),
   };
+
+  const LOCK_SHACKLE_CLOSED = 'M7 11V7a5 5 0 0 1 10 0v4';
+  const LOCK_SHACKLE_OPEN = 'M7 11V7a5 5 0 0 1 9.9-1';
 
   const DAYS = ['יום ראשון', 'יום שני', 'יום שלישי', 'יום רביעי', 'יום חמישי', 'יום שישי', 'יום שבת'];
   const MONTHS = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'];
@@ -44,13 +49,21 @@
     format24h: store.get('format24h', true),
     showSeconds: store.get('showSeconds', true),
     dim: store.get('dim', 100),
+    locked: store.get('locked', false),
   };
+
+  function applyLockToUI() {
+    els.lockToggle.classList.toggle('locked', settings.locked);
+    els.lockShackle.setAttribute('d', settings.locked ? LOCK_SHACKLE_CLOSED : LOCK_SHACKLE_OPEN);
+    els.lockToggle.setAttribute('aria-label', settings.locked ? 'נעילת מגע פעילה — הקש לביטול' : 'נעילת מגע כבויה — הקש לנעילה');
+  }
 
   function applySettingsToUI() {
     els.toggleWake.checked = settings.wakeEnabled;
     els.toggle24h.checked = settings.format24h;
     els.toggleSeconds.checked = settings.showSeconds;
     els.rangeDim.value = settings.dim;
+    applyLockToUI();
     els.seconds.hidden = !settings.showSeconds;
     els.drift.style.setProperty('--dim', settings.dim / 100);
   }
@@ -178,8 +191,17 @@
     els.panel.hidden = true;
   }
 
-  els.stage.addEventListener('click', openPanel);
+  els.stage.addEventListener('click', () => {
+    if (!settings.locked) openPanel();
+  });
   els.closePanel.addEventListener('click', closePanel);
+
+  els.lockToggle.addEventListener('click', (event) => {
+    event.stopPropagation();
+    settings.locked = !settings.locked;
+    store.set('locked', settings.locked);
+    applyLockToUI();
+  });
 
   els.toggleWake.addEventListener('change', () => {
     settings.wakeEnabled = els.toggleWake.checked;

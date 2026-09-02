@@ -109,6 +109,29 @@ body {
   transition: opacity 0.2s ease;
 }
 
+#lock-toggle {
+  position: fixed;
+  top: max(14px, env(safe-area-inset-top));
+  left: max(14px, env(safe-area-inset-left));
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--fg-faint);
+  opacity: 0.45;
+  padding: 0;
+  cursor: pointer;
+  z-index: 20;
+}
+
+#lock-toggle.locked {
+  color: var(--accent);
+  opacity: 0.55;
+}
+
 #panel {
   position: fixed;
   inset: 0;
