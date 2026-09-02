@@ -20,7 +20,7 @@
 ## הרצה מקומית לפיתוח
 
 ```bash
-python3 -m http.server 8000
+node scripts/dev-server.js 8000
 # ואז לפתוח http://localhost:8000
 ```
 
@@ -40,4 +40,5 @@ manifest.json         מניפסט PWA (התקנה למסך הבית)
 service-worker.js     תמיכה אופליין
 icons/                אייקוני האפליקציה
 scripts/gen-icons.js   סקריפט חד-פעמי ליצירת האייקונים
+scripts/dev-server.js  שרת מקומי פשוט להרצה בזמן פיתוח
 ```
