@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#0a0a0c" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="שומר מסך שעון: מדליק את המסך ברצף ומציג שעה ותאריך, בעיצוב חשוך וחסכוני בסוללה." />
+
+  <title>Staying Clock</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Staying Clock" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="stage">
+    <div id="drift">
+      <div id="time" aria-live="off">00:00</div>
+      <div id="seconds">00</div>
+      <div id="date">-</div>
+      <div id="battery" hidden></div>
+    </div>
+  </main>
+
+  <div id="hint">הקש למסך כדי לפתוח הגדרות</div>
+
+  <div id="panel" hidden>
+    <div id="panel-inner">
+      <h1>Staying Clock</h1>
+
+      <label class="row">
+        <span>השאר מסך דלוק</span>
+        <input type="checkbox" id="toggle-wake" />
+      </label>
+      <p id="wake-status" class="hint-text"></p>
+
+      <label class="row">
+        <span>פורמט 24 שעות</span>
+        <input type="checkbox" id="toggle-24h" checked />
+      </label>
+
+      <label class="row">
+        <span>הצג שניות</span>
+        <input type="checkbox" id="toggle-seconds" checked />
+      </label>
+
+      <label class="row">
+        <span>בהירות תצוגה</span>
+        <input type="range" id="range-dim" min="20" max="100" value="100" />
+      </label>
+
+      <button id="close-panel">סגור</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

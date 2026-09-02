@@ -1,0 +1,186 @@
+:root {
+  --bg: #000000;
+  --fg: #b98a3d;       /* dim warm amber — easy on the eyes in the dark, low OLED power draw */
+  --fg-dim: #4a3418;
+  --fg-faint: #2a2a2e;
+  --accent: #ffb03b;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  overscroll-behavior: none;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+#stage {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+/* Slowly wanders a few px around center over time to prevent OLED burn-in
+   during long stationary display sessions. Updated from JS via CSS vars. */
+#drift {
+  --dx: 0px;
+  --dy: 0px;
+  transform: translate(var(--dx), var(--dy));
+  transition: transform 30s linear;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: brightness(var(--dim, 1));
+}
+
+#time {
+  font-size: min(24vw, 220px);
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+}
+
+#seconds {
+  margin-top: 0.4em;
+  font-size: min(4.5vw, 38px);
+  font-weight: 300;
+  color: var(--fg-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+#seconds[hidden] {
+  display: none;
+}
+
+#date {
+  margin-top: 0.6em;
+  font-size: min(4.2vw, 34px);
+  font-weight: 300;
+  color: var(--fg-dim);
+  letter-spacing: 0.03em;
+}
+
+#battery {
+  margin-top: 0.8em;
+  font-size: min(3vw, 22px);
+  color: var(--fg-faint);
+}
+
+#battery[hidden] {
+  display: none;
+}
+
+#hint {
+  position: fixed;
+  bottom: 5vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--fg-faint);
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+#hint.show {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+#panel {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+#panel[hidden] {
+  display: none;
+}
+
+#panel-inner {
+  width: min(90vw, 380px);
+  padding: 28px 24px;
+  border: 1px solid var(--fg-faint);
+  border-radius: 16px;
+  background: #0a0a0c;
+}
+
+#panel-inner h1 {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--accent);
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid #1a1a1d;
+  color: #d0d0d0;
+  font-size: 16px;
+}
+
+.row input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--accent);
+}
+
+.row input[type="range"] {
+  width: 140px;
+  accent-color: var(--accent);
+}
+
+.hint-text {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--fg-faint);
+  line-height: 1.5;
+}
+
+#close-panel {
+  width: 100%;
+  margin-top: 24px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #1a1200;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#close-panel:active {
+  opacity: 0.8;
+}
