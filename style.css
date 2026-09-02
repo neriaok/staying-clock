@@ -120,8 +120,8 @@ body {
   justify-content: center;
   border: none;
   background: transparent;
-  color: var(--fg-faint);
-  opacity: 0.45;
+  color: var(--fg-dim);
+  opacity: 0.85;
   padding: 0;
   cursor: pointer;
   z-index: 20;
@@ -129,7 +129,7 @@ body {
 
 #lock-toggle.locked {
   color: var(--accent);
-  opacity: 0.55;
+  opacity: 0.9;
 }
 
 #panel {

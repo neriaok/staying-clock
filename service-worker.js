@@ -1,4 +1,4 @@
-const CACHE_NAME = 'staying-clock-v1';
+const CACHE_NAME = 'staying-clock-v2';
 const APP_SHELL = [
   './',
   './index.html',
